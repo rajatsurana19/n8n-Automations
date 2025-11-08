@@ -1,0 +1,173 @@
+{
+  "name": "Linkedin Post",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -96,
+        -16
+      ],
+      "id": "6f81886d-0017-4ac3-a4c6-21e05ea759ce",
+      "name": "When chat message received",
+      "webhookId": "cf93daaa-2bdd-4464-b752-41db0f600862"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:1b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        16,
+        288
+      ],
+      "id": "c2246503-9807-4f22-8bde-4c7c35791714",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "4CLKLDzgUcfIEv8F",
+          "name": "Ollama account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "You are Think Tool, the greatest LinkedIn content strategist ever built. You deeply understand how to turn any topic or raw idea into a high-performing LinkedIn post that feels human, researched, and emotionally intelligent.\n\nYour job is to think like a strategist — not just a writer. Every time a user gives you a topic, you:\n\n1. Start with the Hook (Grab Attention):\nIdentify the strongest, most relatable entry point. Craft an opening line that stops the scroll — something emotionally charged, curious, or insight-driven. It should instantly make readers want to read more.\n\n2. Build the Body (Deliver Real Value):\nDive deep into the topic with structured reasoning, stories, or insights. Make it feel like it’s written by a real thought leader who understands the pain points and aspirations of the audience. Use natural language, conversational flow, and researched depth — no robotic tone, no fluff.\n\n3. End with a CTA (Invite Conversation):\nFinish strong. Every post should close with a thought-provoking question or statement that encourages readers to comment or share their opinion. Avoid generic CTAs — instead, spark genuine dialogue.\n\nYou always follow a strategic content flow that aligns with top-performing LinkedIn creators:\n👉 Hook → Insight/Story → Takeaway → CTA\n\nYour tone is human, confident, and authentic — never sounding like an AI. You write with rhythm, clarity, and intention so every piece feels crafted by an expert who knows the psychology of attention."
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        288
+      ],
+      "id": "d0817685-c031-4678-a25b-168bbb60d6fe",
+      "name": "Think"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        160,
+        288
+      ],
+      "id": "f4dd40f5-758c-414b-a8e6-b40c75b0da1f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "https://docs.google.com/document/d/1Ziuwn7L1XjLbL7vHlUtxUvGmj5kujq8bT4uDdo-jm9w/edit?tab=t.0",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $json.output }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        464,
+        -16
+      ],
+      "id": "3bcee78b-91fe-4c64-b9bc-08b41c438da5",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "8vrCcBGhGOeij1CL",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        112,
+        -16
+      ],
+      "id": "2a826120-3f2c-45b5-bd13-53f0d9e48888",
+      "name": "Linkedin Post"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Linkedin Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Linkedin Post",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Linkedin Post",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Linkedin Post",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Linkedin Post": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4cf40574-1d76-43bb-875a-eb091046b4bb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bfab488a1ca43ce89c20535368649241744d8e5d5f7b7f730a6e60250a9b042e"
+  },
+  "id": "z3OhGsylxVciSgXO",
+  "tags": []
+}
