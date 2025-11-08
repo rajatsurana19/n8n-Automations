@@ -30,8 +30,8 @@
       "name": "Ollama Chat Model",
       "credentials": {
         "ollamaApi": {
-          "id": "4CLKLDzgUcfIEv8F",
-          "name": "Ollama account 2"
+          "id": "YOUR_OLLAMA_ID",
+          "name": "YOUR_OLLAMA_ACCOUNT"
         }
       }
     },
@@ -54,10 +54,10 @@
         "operation": "appendOrUpdate",
         "documentId": {
           "__rl": true,
-          "value": "1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E",
+          "value": "YOUR_GOOGLE_SHEET",
           "mode": "list",
           "cachedResultName": "N8N Test",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E/edit?usp=drivesdk"
+          "cachedResultUrl": "YOUR_GOOGLE_SHEET_URL"
         },
         "sheetName": {
           "__rl": true,
