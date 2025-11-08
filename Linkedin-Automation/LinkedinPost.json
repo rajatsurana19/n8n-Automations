@@ -82,7 +82,7 @@
       "name": "Update a document",
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "8vrCcBGhGOeij1CL",
+          "id": "YOUR_GOOGLE_DOCUMENT_ID",
           "name": "Google Docs account"
         }
       }
