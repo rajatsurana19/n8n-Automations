@@ -30,8 +30,8 @@
       "name": "Ollama Chat Model",
       "credentials": {
         "ollamaApi": {
-          "id": "4CLKLDzgUcfIEv8F",
-          "name": "Ollama account 2"
+          "id": "YOUR_OLLAMA_ID",
+          "name": "YOUR_OLLAMA_ACCOUNT"
         }
       }
     },
