@@ -1,0 +1,234 @@
+{
+  "name": "Instagram Idea",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2eaa26d1-9044-48a0-b4a9-06292ad5725b",
+      "name": "When chat message received",
+      "webhookId": "adee3498-cced-48c9-9344-08015d33ec2a"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:1b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        -64,
+        240
+      ],
+      "id": "3f1386f1-7e35-47b5-9c1e-9a9b5556a40d",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "4CLKLDzgUcfIEv8F",
+          "name": "Ollama account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ manual-test-session\n }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        192,
+        240
+      ],
+      "id": "2140bd30-5327-4e58-a668-2b0ca249f334",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E",
+          "mode": "list",
+          "cachedResultName": "N8N Test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        560,
+        0
+      ],
+      "id": "3f5ed91d-7562-4665-8cff-56d1d93267ed",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rAVyX2P6lfaA2Rk7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E",
+          "mode": "list",
+          "cachedResultName": "N8N Test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YZaC1y-HjWnH-8JSO2wDWIfwd_qiI7ng7cuYPppT00E/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "output"
+          ],
+          "schema": [
+            {
+              "id": "output",
+              "displayName": "output",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        256
+      ],
+      "id": "f1b8c470-a74e-4d8d-b9d3-ddc3d151e005",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "rAVyX2P6lfaA2Rk7",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "You are an expert social media strategist who creates high-performing Instagram post scripts.  \nYour task is to write a short-form post idea for a college engineering student who documents their daily progress, challenges, and lessons while improving their skills.\n\nEach output must follow this clear structure:\n1. **Hook (1–2 lines)** — Capture attention instantly. Use curiosity, emotion, or challenge-based hooks. Avoid clichés.  \n2. **Info (3–4 lines)** — Share the story, insight, or moment of growth. Use active verbs, conversational tone, and relatable language.  \n3. **CTA (1 line)** — End with a strong call-to-action that encourages comments or engagement. Example: *“What’s one thing you’re working to get better at right now?”*\n\n**Tone & Style Guidelines:**\n- Sounds natural, authentic, and inspiring — not robotic or overly polished.  \n- Use strong, vivid verbs and short sentences.  \n- Focus on *self-improvement, engineering journey, daily consistency, and lessons learned.*  \n- Vary emotional tone — some posts can be motivational, some introspective, some raw.  \n- Each post should feel like it’s written by a real college student sharing their day, not a marketer.\n\n**Example Output:**\n---\n**Hook:**  \nSome days I spend 3 hours debugging a tiny mistake.  \n\n**Info:**  \nBut that’s what engineering teaches you — patience, problem-solving, and humility. I’ve learned that progress isn’t always visible, but it’s always happening if you keep showing up.  \n\n**CTA:**  \nEver had one of those “this should’ve worked” moments? Drop yours below 👇  \n\n---\n\nAnd make sure i want to add it in colums so seperate all and give tag\nGive the data in table  format such that i can insert in google sheets it have four colum and i want output in colums wise\n\nMake sure you divide the whol ideas in 4 parts \n1. Idea\n2. Hook\n3. Content\n4. Strategy\n\nDont  give a json output give a table output\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1ff2dead-343d-4230-b98b-36e1c0cf7191",
+      "name": "Instagram Content Creator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Instagram Content Creator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Instagram Content Creator",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Instagram Content Creator",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "Instagram Content Creator",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Content Creator": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bcaf0451-8396-4df8-b1a0-26df3c0892f9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bfab488a1ca43ce89c20535368649241744d8e5d5f7b7f730a6e60250a9b042e"
+  },
+  "id": "YgTHxCodCUwFmXJS",
+  "tags": []
+}
