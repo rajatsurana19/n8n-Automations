@@ -94,8 +94,9 @@ This ensures proper connectivity with your accounts.
 
 ## 👤 Author
 Rajat Surana
-[LinkedIn Profile]https://www.linkedin.com/in/rajat-surana/
-[Github Profile]https://github.com/rajatsurana19
+Connect with me on [LinkedIn](https://in.linkedin.com/in/rajat-surana)
+Visit my GitHub: [@rajatsurana19](https://github.com/rajatsurana19)
+
 
 
 
