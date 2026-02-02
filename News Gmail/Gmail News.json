@@ -1,0 +1,185 @@
+{
+  "name": "Gmail News",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a news journalist give the topic related to {{ $json.chatInput }} make sure its accurate and give me aproper structure to send to the particular user\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "5f1be3a5-a423-4ca0-84d0-586160fa7f17",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:1b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "c8073430-5e24-4492-9cea-bdce1ed90a19",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "4CLKLDzgUcfIEv8F",
+          "name": "Ollama account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.sessionId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "554d5a81-707a-4af3-9efb-5b68613b1388",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "suranarajat07@gmail.com",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', `Give me latest news insights`, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        368,
+        208
+      ],
+      "id": "ff876a82-bde2-4f7a-88e8-9177eb2d16a6",
+      "name": "Send a message in Gmail",
+      "webhookId": "e8660ee8-9894-4d9d-81e2-b65c88478a6e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "exFM6zjzHvLo0ztI",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "e00412de-6ceb-4df8-a94f-41d11445edaa",
+      "name": "When chat message received",
+      "webhookId": "31ef37cd-1789-47cc-8527-aab8ec506515"
+    },
+    {
+      "parameters": {
+        "sendTo": "suranarajat07@gmail.com",
+        "subject": "Latest news",
+        "message": "={{ $json.output }}",
+        "options": {
+          "senderName": "Rajat"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        560,
+        32
+      ],
+      "id": "e50ac4d2-cf53-4e34-984e-c193349df088",
+      "name": "Send a message",
+      "webhookId": "79b1a2e2-91a5-480b-9e2f-016852414995",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "exFM6zjzHvLo0ztI",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3db92d85-b692-4f29-998d-e0372d218ca6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bfab488a1ca43ce89c20535368649241744d8e5d5f7b7f730a6e60250a9b042e"
+  },
+  "id": "49L33hT6lOvV85cj",
+  "tags": []
+}
